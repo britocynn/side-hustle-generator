@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Side Hustle Generator</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(180deg,#1a1611,#0f0f0f);
+color:#f3e6d0;
+text-align:center;
+padding:40px 20px;
+}
+
+.container{
+max-width:760px;
+margin:auto;
+background:linear-gradient(180deg,#fff7e9,#f1e0c3);
+padding:35px;
+border-radius:20px;
+color:#2b241c;
+box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+
+.title-wrap{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+margin-bottom:10px;
+}
+
+.logo{
+width:38px;
+height:38px;
+border-radius:50%;
+background:linear-gradient(135deg,#e4c178,#a06b27);
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:18px;
+}
+
+h1{
+margin:0;
+font-size:32px;
+}
+
+#subtitle{
+margin-top:8px;
+color:#5b4d3d;
+}
+
+label{
+display:block;
+text-align:left;
+margin-top:18px;
+font-weight:bold;
+}
+
+select,input{
+width:100%;
+padding:12px;
+margin-top:6px;
+border-radius:10px;
+border:1px solid #d7c3a1;
+font-size:16px;
+}
+
+.buttons{
+margin-top:20px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+button{
+border:none;
+padding:13px 18px;
+border-radius:12px;
+font-size:16px;
+cursor:pointer;
+font-weight:bold;
+}
+
+#generateBtn,
+#moreBtn{
+background:linear-gradient(135deg,#d6a84f,#9c6a26);
+color:white;
+}
+
+#copyBtn{
+background:#2d241b;
+color:#f5ead5;
+}
+
+#moreBtn,
+#copyBtn{
+display:none;
+}
+
+.result{
+margin-top:25px;
+background:white;
+padding:20px;
+border-radius:15px;
+text-align:left;
+border:1px solid #ead6b4;
+display:none;
+}
+
+.idea{
+margin-bottom:15px;
+padding-bottom:12px;
+border-bottom:1px solid #eee;
+}
+
+.idea b{
+color:#2e241a;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="title-wrap">
+
+<div class="logo">✦</div>
+
+<h1 id="title">Side Hustle Generator</h1>
+
+<div class="logo">✦</div>
+
+</div>
+
+<p id="subtitle">Generate side hustle ideas in seconds</p>
+
+<label id="languageLabel">Language</label>
+
+<select id="language" onchange="updateLanguage()">
+<option value="en">English</option>
+<option value="pt">Português</option>
+</select>
+
+<label id="interestLabel">Skill or interest</label>
+
+<input id="interest" placeholder="Accounting, beauty, fitness...">
+
+<div class="buttons">
+
+<button id="generateBtn" onclick="generateIdeas()">Generate Ideas</button>
+
+<button id="moreBtn" onclick="generateMoreIdeas()">Generate More Ideas</button>
+
+<button id="copyBtn" onclick="copyIdeas()">Copy Ideas</button>
+
+</div>
+
+<div id="result" class="result"></div>
+
+</div>
+
+<script>
+
+let interestSaved=""
+let setIndex=0
+let language="en"
+
+const ideas_en=[
+[
+"Freelance service using {interest}",
+"Sell digital templates related to {interest}",
+"Mini online course teaching {interest}",
+"Consulting service for {interest}",
+"Niche social media page about {interest}"
+],
+[
+"Paid workshop teaching {interest}",
+"Newsletter about {interest}",
+"Sell a starter guide about {interest}",
+"Create a resource library about {interest}",
+"Offer 1-to-1 coaching in {interest}"
+],
+[
+"Create a challenge program about {interest}",
+"Sell toolkits for {interest}",
+"Build a membership community about {interest}",
+"Audit service for businesses in {interest}",
+"Create a digital product bundle about {interest}"
+]
+]
+
+const ideas_pt=[
+[
+"Serviço freelancer usando {interest}",
+"Vender templates digitais de {interest}",
+"Mini curso online sobre {interest}",
+"Serviço de consultoria em {interest}",
+"Página de conteúdo sobre {interest}"
+],
+[
+"Workshop pago sobre {interest}",
+"Newsletter sobre {interest}",
+"Guia inicial sobre {interest}",
+"Biblioteca de recursos de {interest}",
+"Sessões individuais de {interest}"
+],
+[
+"Programa desafio de {interest}",
+"Bundle de ferramentas de {interest}",
+"Comunidade paga sobre {interest}",
+"Serviço de auditoria em {interest}",
+"Produto digital sobre {interest}"
+]
+]
+
+function updateLanguage(){
+
+language=document.getElementById("language").value
+
+if(language==="pt"){
+
+title.innerText="Gerador de Side Hustles"
+subtitle.innerText="Gera ideias de side hustle em segundos"
+languageLabel.innerText="Idioma"
+interestLabel.innerText="Competência ou interesse"
+generateBtn.innerText="Gerar Ideias"
+moreBtn.innerText="Gerar Mais Ideias"
+copyBtn.innerText="Copiar Ideias"
+
+}else{
+
+title.innerText="Side Hustle Generator"
+subtitle.innerText="Generate side hustle ideas in seconds"
+languageLabel.innerText="Language"
+interestLabel.innerText="Skill or interest"
+generateBtn.innerText="Generate Ideas"
+moreBtn.innerText="Generate More Ideas"
+copyBtn.innerText="Copy Ideas"
+
+}
+
+}
+
+function renderIdeas(){
+
+let ideas=language==="pt"?ideas_pt:ideas_en
+
+let list=ideas[setIndex%ideas.length]
+
+let html=""
+
+list.forEach((idea,i)=>{
+
+let text=idea.replace("{interest}",interestSaved)
+
+html+=`<div class="idea"><b>${i+1}. ${text}</b></div>`
+
+})
+
+result.innerHTML=html
+result.style.display="block"
+
+copyBtn.style.display="inline-block"
+moreBtn.style.display="inline-block"
+
+}
+
+function generateIdeas(){
+
+let interest=document.getElementById("interest").value.trim()
+
+if(interest===""){
+alert(language==="pt"?"Introduz um interesse":"Enter an interest")
+return
+}
+
+interestSaved=interest
+setIndex=0
+
+renderIdeas()
+
+}
+
+function generateMoreIdeas(){
+
+setIndex++
+
+renderIdeas()
+
+}
+
+function copyIdeas(){
+
+let text=result.innerText
+
+navigator.clipboard.writeText(text)
+
+alert(language==="pt"?"Ideias copiadas":"Ideas copied")
+
+}
+
+updateLanguage()
+
+</script>
+
+</body>
+</html>
