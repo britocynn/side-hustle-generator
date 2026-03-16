@@ -443,31 +443,33 @@
     }
 
     function updateLanguage() {
-      let language = document.getElementById("language").value;
-      currentLanguage = language;
+  let language = document.getElementById("language").value;
+  currentLanguage = language;
 
-      if (language === "pt") {
-        document.getElementById("title").innerText = "Gerador de Ideias de Renda Extra";
-        document.getElementById("subtitle").innerText = "Gera ideias de renda extra em segundos";
-        document.getElementById("languageLabel").innerText = "Idioma";
-        document.getElementById("interestLabel").innerText = "Competência, interesse ou nicho";
-        document.getElementById("interest").placeholder = "Ex.: contabilidade, beleza, fitness, design";
-        document.getElementById("generateBtn").innerText = "Gerar Ideias de Renda Extra";
-        document.getElementById("moreBtn").innerText = "Gerar Mais Ideias";
-        document.getElementById("copyBtn").innerText = "Copiar Ideias";
-        document.getElementById("footerNote").innerText = "Ferramentas inteligentes para empreendedores modernos";
-      } else {
-        document.getElementById("title").innerText = "Side Hustle Generator";
-        document.getElementById("subtitle").innerText = "Generate side hustle ideas in seconds";
-        document.getElementById("languageLabel").innerText = "Language";
-        document.getElementById("interestLabel").innerText = "Skill, interest or niche";
-        document.getElementById("interest").placeholder = "E.g. accounting, beauty, fitness, design";
-        document.getElementById("generateBtn").innerText = "Generate Side Hustles";
-        document.getElementById("moreBtn").innerText = "Generate More Ideas";
-        document.getElementById("copyBtn").innerText = "Copy Ideas";
-        document.getElementById("footerNote").innerText = "Smart tools for modern entrepreneurs";
-      }
-    }
+  if (language === "pt") {
+    document.getElementById("title").innerText = "Gerador de Ideias de Renda Extra";
+    document.getElementById("subtitle").innerText = "Gera ideias de renda extra em segundos";
+    document.getElementById("languageLabel").innerText = "Idioma";
+    document.getElementById("interestLabel").innerText = "Competência, interesse ou nicho";
+    document.getElementById("interest").placeholder = "Ex.: contabilidade, beleza, fitness, design";
+    document.getElementById("generateBtn").innerText = "Gerar Ideias de Renda Extra";
+    document.getElementById("moreBtn").innerText = "Gerar Mais Ideias";
+    document.getElementById("copyBtn").innerText = "Copiar Ideias";
+    document.getElementById("footerNote").innerText = "Ferramentas inteligentes para empreendedores modernos";
+    document.title = "Gerador de Ideias de Renda Extra";
+  } else {
+    document.getElementById("title").innerText = "Extra Income Ideas Generator";
+    document.getElementById("subtitle").innerText = "Generate extra income ideas in seconds";
+    document.getElementById("languageLabel").innerText = "Language";
+    document.getElementById("interestLabel").innerText = "Skill, interest or niche";
+    document.getElementById("interest").placeholder = "E.g. accounting, beauty, fitness, design";
+    document.getElementById("generateBtn").innerText = "Generate Extra Income Ideas";
+    document.getElementById("moreBtn").innerText = "Generate More Ideas";
+    document.getElementById("copyBtn").innerText = "Copy Ideas";
+    document.getElementById("footerNote").innerText = "Smart tools for modern entrepreneurs";
+    document.title = "Extra Income Ideas Generator";
+  }
+}
 
     function renderIdeas() {
       const language = currentLanguage;
